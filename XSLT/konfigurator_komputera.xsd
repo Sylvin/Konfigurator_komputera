@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2015 rel. 3 sp1 (x64) (http://www.altova.com) by fdhgfdhfd (Wroclaw University of Technology) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:vc="http://www.w3.org/2007/XMLSchema-versioning" elementFormDefault="qualified" attributeFormDefault="unqualified" vc:minVersion="1.1">
+	<xs:element name="konfigurator">
+		<xs:annotation>
+			<xs:documentation>konfigurator komputera</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Score3DMark">
+					<xs:simpleType>
+						<xs:restriction base="xs:positiveInteger">
+							<xs:minInclusive value="1"/>
+							<xs:maxInclusive value="100000"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="Max_cena">
+					<xs:simpleType>
+						<xs:restriction base="xs:float">
+							<xs:minInclusive value="1.00"/>
+							<xs:maxInclusive value="100000.00"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="specyfikacja">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="procesor">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="taktowanie">
+											<xs:simpleType>
+												<xs:restriction base="xs:positiveInteger">
+													<xs:minInclusive value="1"/>
+													<xs:maxInclusive value="5000"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="liczba_rdzeni">
+											<xs:simpleType>
+												<xs:restriction base="xs:int">
+													<xs:minInclusive value="1"/>
+													<xs:maxInclusive value="16"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="firma">
+											<xs:complexType>
+												<xs:choice>
+													<xs:element name="AMD">
+														<xs:simpleType>
+															<xs:restriction base="xs:Name">
+																<xs:minLength value="1" fixed="false"/>
+																<xs:maxLength value="100" fixed="false"/>
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+													<xs:element name="Intel">
+														<xs:simpleType>
+															<xs:restriction base="xs:Name">
+																<xs:minLength value="1"/>
+																<xs:maxLength value="100"/>
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+												</xs:choice>
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="karta_graficzna">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="model">
+											<xs:complexType>
+												<xs:choice>
+													<xs:element name="AMD_Radeon">
+														<xs:simpleType>
+															<xs:restriction base="xs:string">
+																<xs:minLength value="1"/>
+																<xs:maxLength value="100"/>
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+													<xs:element name="nVidia_GeForce">
+														<xs:simpleType>
+															<xs:restriction base="xs:string">
+																<xs:minLength value="1"/>
+																<xs:maxLength value="100"/>
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+												</xs:choice>
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Benchmark3DMark11">
+		<xs:annotation>
+			<xs:documentation>3DMark11 - Performance</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="CPU">
+					<xs:complexType>
+						<xs:choice>
+							<xs:element name="AMD"/>
+							<xs:element name="Intel"/>
+						</xs:choice>
+						<xs:attribute name="taktowanie"/>
+						<xs:attribute name="liczba_rdzeni"/>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="GPU">
+					<xs:complexType>
+						<xs:choice>
+							<xs:element name="GeForce"/>
+							<xs:element name="Radeon"/>
+						</xs:choice>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="Score">
+					<xs:simpleType>
+						<xs:restriction base="xs:positiveInteger">
+							<xs:minInclusive value="1"/>
+							<xs:maxInclusive value="100000"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Zamówienie">
+		<xs:annotation>
+			<xs:documentation>obsługa zamówienia</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="klient">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="imię" type="xs:Name"/>
+							<xs:element name="nazwisko" type="xs:Name"/>
+							<xs:element name="adres">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="ulica" type="xs:string"/>
+										<xs:element name="numer_domu" type="xs:string"/>
+										<xs:element name="miejscowość" type="xs:string"/>
+										<xs:element name="kod_pocztowy" type="xs:string"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="e-mail" type="xs:string"/>
+							<xs:element name="Nr_telefonu" type="xs:long"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="kurier">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="Nr_listu_przewozowego" type="xs:string"/>
+							<xs:element name="cena_przesyłki" type="xs:float"/>
+							<xs:element name="nazwa" type="xs:string"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="sklep">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="e-mail" type="xs:string"/>
+							<xs:element name="zestaw">
+								<xs:complexType>
+									<xs:simpleContent>
+										<xs:extension base="xs:anyAtomicType"/>
+									</xs:simpleContent>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="nazwa" type="xs:string"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

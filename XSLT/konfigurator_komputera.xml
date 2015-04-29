@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<konfigurator xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="file:///C:/Users/Turos19/Pulpit/konfigurator_komputera.xsd">
+	<Score3DMark>14000</Score3DMark> 
+	<Max_cena>3500</Max_cena>
+	<specyfikacja>
+		<procesor>
+			<taktowanie>3000</taktowanie>
+			<liczba_rdzeni>4</liczba_rdzeni>
+			<firma>
+				<AMD>AMD</AMD>
+			</firma>
+		</procesor>
+		<karta_graficzna>
+			<model>
+				<AMD_Radeon>HD4850</AMD_Radeon>
+			</model>
+		</karta_graficzna>
+	</specyfikacja>
+</konfigurator>
