@@ -258,7 +258,7 @@ $( "#karta_graf" ).change(function() {
 		$("#slider-range1").hide();
 		$("#slider-range2").hide();
 		$("#slider-range3").hide();
-		$("#slider-range4, #amount11, #amount12, #a9").show();
+		$("#slider-range4, #amount11, #amount12, #a2").show();
 		$("#slider-range5").hide();
 	}
 	else if(selection == 5) {
@@ -282,7 +282,7 @@ $( "#karta_graf" ).change(function() {
 		$("#slider-range5, #amount11, #amount12, #a2").show();
 	}
 		else {
-		$("#slider-range1, #amount1, #amount11, #a2").hide();
+		$("#slider-range1, #amount11, #amount12, #a2").hide();
 		$("#slider-range2").hide();
 		$("#slider-range3").hide();
 		$("#slider-range4").hide();
@@ -290,6 +290,7 @@ $( "#karta_graf" ).change(function() {
 	}
 });
 </script>
+<br />
 </html>
 
 <?php
@@ -351,10 +352,10 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
 		$Procki[] = "$TabCPU[$v]";	//przypisanie nazw do tablicy (wczeœniejsze tablice zawieraj¹ wartoœci)
 	}
 	if(empty($Procki)) {
-		echo "Nie znaleziono procesora w podanym przedziale. Podaj inny przedzial punktowy.";
+		echo "Nie znaleziono procesora w podanym przedziale. Podaj inny przedzial punktowy.<br />";
 	}
 	else {
-		echo $Procki[0];	//pierwszy element tablicy dla przedzia³u (najwydajniejszy procesor w przedziale)
+		echo "Procesor: ", $Procki[0];	//pierwszy element tablicy dla przedzia³u (najwydajniejszy procesor w przedziale)
 	}
 }
 		
@@ -416,29 +417,16 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
 		$Karty[] = "$TabGPU[$v]";	//przypisanie nazw do tablicy (wczeœniejsze tablice zawieraj¹ wartoœci)
 	}
 	if(empty($Karty)) {
-		echo "Nie znaleziono karty graficznej w podanym przedziale. Podaj inny przedzial punktowy.";
+		echo "Nie znaleziono karty graficznej w podanym przedziale. Podaj inny przedzial punktowy.<br />";
 	}
 	else {
-		echo $Karty[0];	//pierwszy element tablicy dla przedzia³u (najwydajniejsza karta w przedziale)
+		echo "Karta graficzna: ", $Karty[0];	//pierwszy element tablicy dla przedzia³u (najwydajniejsza karta w przedziale)
 	}
-}	
 
-/*		
-if($_SERVER['REQUEST_METHOD'] == 'POST') {
-	if($_POST['firma'] == 'AMD Radeon') {	// wyœwietlanie wyników dla amd bez mobilnych kart
-		$wynikAMD = array_search2("/^AMD(?!.*M).*$/",$karty);	// regex z zanegowaniem M (mobilne karty)
-		foreach($wynikAMD as $k => $v) {
-			echo "$karty[$v]";
-		}
-	}
-	else if($_POST['firma'] == 'NVIDIA GeForce') {	// wyœwietlanie dla nvidii bez mobilnych kart
-		$wynikNVIDIA = array_search2("/^NVIDIA(?!.*M).*$/",$karty);
-		foreach($wynikNVIDIA as $k => $v) {
-			echo "$karty[$v]";
-		}
-	}
+	echo '<br /><input type="button" value="Wyszukaj w sklepach">';
 }
-*/		
+
+	
 				//echo preg_replace('/Radeon/', '', $karta);
 			/*preg_match_all('/^AMD/', $_POST['firma'], $dopasowanie);
 			echo "<pre>";
