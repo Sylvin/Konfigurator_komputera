@@ -235,7 +235,6 @@ table.sortable th:not(.sorttable_sorted):not(.sorttable_sorted_reverse):not(.sor
 	//obliczanie minimalnej ceny komponentów
 	$min_cena_proc = min($cena_proline1, $cena_xkom1, $cena_morele1);
 	$min_cena_karta = min($cena_proline2, $cena_xkom2, $cena_morele2);
-	$suma = $min_cena_proc+$min_cena_karta;
 	switch($min_cena_proc) {
 		case $cena_proline1: 
 			$zestaw_proc = $nazwa_proline1;
@@ -264,6 +263,17 @@ table.sortable th:not(.sorttable_sorted):not(.sorttable_sorted_reverse):not(.sor
 			$sklep_karta = "Morele.net";
 			break;
 	}
+	if($min_cena_proc == 99999) {
+		$zestaw_proc = "brak towaru";
+		$sklep_proc = "brak towaru";
+		$min_cena_proc = 0;
+	}
+	if($min_cena_karta == 99999) {
+		$zestaw_karta = "brak towaru";
+		$sklep_karta = "brak towaru";
+		$min_cena_karta = 0;
+	}
+	$suma = $min_cena_proc+$min_cena_karta;
 	
 	//tabelka z wynikami zestawu
 	echo "<h3>Najtanszy zestaw:</h3>";
