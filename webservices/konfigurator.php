@@ -1,20 +1,3 @@
-<?php
-/*if (isset($_POST['licz'])) {
-	$liczba_a=floatval($_POST['a']); // Konwersja na liczbê zmiennoprzecinkow¹
-	$liczba_b=floatval($_POST['b']);
-	echo "Chcesz obliczyæ sumê nastêpuj¹cych liczb:" . "<br />" . "<b>";
-	print_r($liczba_a);
-	echo "</b>" . "<br />" . "Oraz:" . "<br />" . "<b>";
-	print_r($liczba_b);
-	echo "</b>" . "<hr />";
-	echo "Ich suma to:" . " <b>";
-	$wynik = $liczba_a + $liczba_b;
-	echo $wynik;
-	echo "</b>";
-} else {
-	echo "Wpisz liczby.";
-}*/
-?>
 <!DOCTYPE html>
   <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
   <script src="//code.jquery.com/jquery-1.10.2.js"></script>
@@ -22,7 +5,8 @@
   <link rel="stylesheet" href="/resources/demos/style.css">
 
 <!-- Formularz dla webserwisu -->
-<form action="<?php echo ($_SERVER['SCRIPT_NAME']); ?>" method="POST">
+<form action="konfigurator" method="POST">
+
 Witamy w konfiguratorze komputera. Podaj swoje kryteria wyboru komputera:<br />
 <!-- Karta graficzna:
 	<select name="firma">
@@ -153,9 +137,9 @@ $( "#proc" ).change(function() {
 		//slider dla procesorów biurowych
 		$( "#slider-range05" ).slider({
 			range: true,
-			min: 1500,
+			min: 1700,
 			max: 3199,
-			values: [ 1500, 3199 ],
+			values: [ 1700, 3199 ],
 			slide: function( event, ui ) {
 				$( "#amount01" ).val( "" + ui.values[ 0 ]);
 				$( "#amount02" ).val( "" + ui.values[ 1 ] );
@@ -295,7 +279,7 @@ $( "#karta_graf" ).change(function() {
 
 <?php
 error_reporting(0); //wy³¹cza raportowanie b³êdów
-require('simple_html_dom.php'); //parser
+require('simple_html_dom.php'); //parser html
 $gpu = file_get_html("http://www.futuremark.com/hardware/gpu"); //strona z list¹ gpu
 $cpu = file_get_html("http://www.futuremark.com/hardware/cpu"); //strona z list¹ cpu
 
@@ -332,7 +316,7 @@ $cpu = file_get_html("http://www.futuremark.com/hardware/cpu"); //strona z list¹
 	$punkty_cpu = array_values($punkty_cpu);
 	$TabCPU = array_combine($punkty_cpu,$proce);	//tablica procesorów, gdzie kluczem jest nazwa, a waroœci¹ punkty
 	
-	$procesory = array_search2("/(^Intel(?!.*-2)(?!.*Core 2)(.*\d{4})(?!.*U)(?!.*Q)(?!.*H)(?!.*M).*$)|(^AMD (FX|A\d)(?!.*M).*$)/",$TabCPU);	// regex z zanegowaniem mobilnych procesorów oraz tych niewystêpuj¹cych w sklepach
+	$procesory = array_search2("/(^Intel(?!.*-2)(?!.*E\d\d\d\d)(?!.*Core 2)(.*\d{4})(?!.*U)(?!.*Q)(?!.*H)(?!.*M).*$)|(^AMD (FX|A\d)(?!.*M).*$)/",$TabCPU);	// regex z zanegowaniem mobilnych procesorów oraz tych niewystêpuj¹cych w sklepach
 
 if($_SERVER['REQUEST_METHOD'] == 'POST') {
 	$min_proc = intval($_POST['amount01']);
@@ -373,7 +357,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
 				unset($karty[$key]);
 			}
 		}
-		$karty = array_values($karty);
+		$karty = array_values($karty);		//porz¹dkuje indeksy tablicy
 		array_walk($karty, 'trim_value');	// usuwa odstêpy z pocz¹tku dla kazdego elementu tablicy
 		//echo '<pre>';  
 		//print_r($karty);  //wyœwietlanie tablicy
@@ -422,17 +406,23 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
 	else {
 		echo "Karta graficzna: ", $Karty[0];	//pierwszy element tablicy dla przedzia³u (najwydajniejsza karta w przedziale)
 	}
-
-	echo '<br /><input type="button" value="Wyszukaj w sklepach">';
+	if(!empty($Karty) && !empty($Procki))
+		echo '<br /><form action="sklepy" method="POST"><input type="submit" name="sklepy" value="Wyszukaj w sklepach"></form>';
 }
-
 	
-				//echo preg_replace('/Radeon/', '', $karta);
-			/*preg_match_all('/^AMD/', $_POST['firma'], $dopasowanie);
-			echo "<pre>";
-			var_dump ($dopasowanie);
-			echo "</pre>";
+$xml = new XMLWriter;
+$xml->openURI($_SERVER["DOCUMENT_ROOT"].'/app/konfigurator.xml');
+$xml->setIndent(true); // makes output cleaner
 
-			exit;*/
+$xml->startElement('Konfigurator');
+//while ($line = fgetcsv($fp)) {
+//   if (count($line) < 4) continue; // skip lines that aren't full
+
+//   $xml->startElement();
+   $xml->writeElement('CPU', $Procki[0]);
+   $xml->writeElement('GPU', $Karty[0]);
+   $xml->endElement();
+//}
+
 
 ?>

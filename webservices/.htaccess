@@ -1,0 +1,6 @@
+#Przekierowanie na bezWWW
+Options +FollowSymLinks
+RewriteEngine on
+RewriteRule ^konfigurator/?$ konfigurator.php [L]
+RewriteRule ^sklepy/?$ sklepy.php [L]
+RewriteRule ^([a-zA-Z_-]*)\.(html|json|xml)?$   index.php?method=$1&format=$2 [nc,qsa]
